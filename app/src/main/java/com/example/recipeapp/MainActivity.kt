@@ -1,16 +1,19 @@
 package com.example.recipeapp
 
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
@@ -23,38 +26,57 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setContent {
-            ScrollableColumn(modifier =
-                Modifier.fillMaxSize()
-                .background(color = Color(0xFFEEECEC))
+            ScrollableColumn(
+                modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(color = Color(0xFFEEECEC))
             )
             {
-                Image(bitmap = imageFromResource(res = resources, resId = R.drawable.happy_meal_small),
+                Image(
+                    bitmap = imageFromResource(
+                        res = resources,
+                        resId = R.drawable.happy_meal_small
+                    ),
                     modifier = Modifier.height(300.dp),
                     contentScale = ContentScale.Crop,
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Happy Meal",
-                        style = TextStyle(
-                            fontSize = TextUnit.Companion.Sp(26)
+                    Row(modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+
+                    ) {
+                        Text(
+                            text = "Happy Meal",
+                            style = TextStyle(
+                                fontSize = TextUnit.Companion.Sp(26)
+                            )
                         )
-                    )
-                    Spacer(modifier = Modifier.padding(top= 10.dp))
-                    Text(text = "800 Calories",
+                        Text(
+                            text = "$5.99",
+                            style = TextStyle(
+                                fontSize = TextUnit.Companion.Sp(18),
+                                color = Color(0xFF85B453)
+                            ),
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.padding(top = 10.dp))
+                    Text(
+                        text = "800 Calories",
                         style = TextStyle(
                             fontSize = TextUnit.Companion.Sp(17)
                         )
                     )
-                    Spacer(modifier = Modifier.padding(top = 10.dp))
-                    Text(text = "$5.99",
-                        style = TextStyle(
-                            fontSize = TextUnit.Companion.Sp(18),
-                            color = Color(0xFF85B453)
-                        )
-                    )
+                    Spacer(modifier = Modifier.padding(top = 20.dp))
+                    Button(onClick = { },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                        ) {
+                        Text(text = "ORDER NOW")
+                    }
                 }
-
             }
-
         }
     }
 }
