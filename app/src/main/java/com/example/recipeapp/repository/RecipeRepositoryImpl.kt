@@ -1,14 +1,14 @@
-package com.example.recipeapp
+package com.example.recipeapp.repository
 
 import com.example.recipeapp.domain.Recipe
-import com.example.recipeapp.network.model.RecipeDto
 import com.example.recipeapp.network.model.RecipeDtoMapper
 import com.example.recipeapp.network.model.retrofit.RecipeService
+import com.example.recipeapp.repository.RecipeRepository
 
 class RecipeRepositoryImpl(
     private val recipeService:RecipeService,
     private val mapper : RecipeDtoMapper
-) : RecipeRepository{
+) : RecipeRepository {
 
     override suspend fun search(token: String, page: Int, query: String): List<Recipe> {
         return mapper.toDomainList(recipeService.search(token = token, page = page, query = query).recipies)
