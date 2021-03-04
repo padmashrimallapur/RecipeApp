@@ -1,6 +1,7 @@
 package com.example.recipeapp.presentation.ui.recipelist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,20 +18,16 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
-import com.example.recipeapp.R
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecipeFragmentList : Fragment() {
 
+    private val TAG= "TAG"
     val viewModel: RecipeListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("RecipeFragmentList : ${viewModel.getRandome()}")
-        println("RecipeFragmentList : ${viewModel.getRepository()}")
-        println("RecipeFragmentList : ${viewModel.getToken()}")
     }
 
     override fun onCreateView(
@@ -38,8 +35,14 @@ class RecipeFragmentList : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return ComposeView(requireContext()).apply {
             setContent {
+                val recipes = viewModel.recipes.value
+
+                for(recipe in recipes){
+                    Log.d(TAG, "RECIPE: ${recipe.title}")
+                }
                 Column(
                     modifier = Modifier
                         .border(
@@ -49,7 +52,9 @@ class RecipeFragmentList : Fragment() {
                 ) {
                     Text(text = "Recipe List")
                     Spacer(modifier = Modifier.padding(top = 10.dp))
-                    Button(onClick = { findNavController().navigate(R.id.viewRecipe) }) {
+                    Button(onClick = {
+                        viewModel.newSearch()
+                    } ){
                         Text(text = "To Recipe Fragment")
                     }
                 }

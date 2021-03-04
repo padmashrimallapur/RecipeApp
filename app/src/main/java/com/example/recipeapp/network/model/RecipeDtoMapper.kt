@@ -14,7 +14,7 @@ class RecipeDtoMapper : DomainMapper<RecipeDto, Recipe> {
             sourceUrl = entity.source_url,
             description =  entity.description,
             cookingInstruction = entity.cooking_instructions,
-            ingredients = entity.ingredients?: listOf(),
+            ingredients = entity.ingredients.orEmpty(),
             dateAdded = entity.date_added,
             dateUpdater = entity.date_updated,
         )

@@ -17,7 +17,7 @@ class RecipeDto (
     var publisher: String? = null,
 
     @SerializedName("rating")
-    var rating: Int? = null,
+    var rating: Int? = 0,
 
     @SerializedName("source_url")
     var source_url: String? = null,
