@@ -21,7 +21,7 @@ object NetworkModule {
         @Singleton
         @Provides
         fun provideRecipeMapper() : RecipeDtoMapper{
-                return RecipeDtoMapper();
+                return RecipeDtoMapper()
         }
 
         @Singleton
@@ -38,7 +38,7 @@ object NetworkModule {
         @Provides
         @Named("auth_token")
         fun getToken() : String{
-                return "Token 9c8b06d329136da358c2d00e76946b0111ce2c48";
+                return "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
         }
 
 

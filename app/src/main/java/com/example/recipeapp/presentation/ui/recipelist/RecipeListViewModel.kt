@@ -11,17 +11,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Named
 
 class RecipeListViewModel
-    @ViewModelInject
-    constructor(
+@ViewModelInject
+constructor(
 
-            private val repository: RecipeRepository,
-            private  @Named("auth_token") val token : String,
-    ) : ViewModel() {
+    private val repository: RecipeRepository,
+    @Named("auth_token") private val token: String,
+) : ViewModel() {
 
     val recipes: MutableState<List<Recipe>> = mutableStateOf(ArrayList())
 
+    init {
+        newSearch()
+    }
 
-    fun newSearch(){
+    fun newSearch() {
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
