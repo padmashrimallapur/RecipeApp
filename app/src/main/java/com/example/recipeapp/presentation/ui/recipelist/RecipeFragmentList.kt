@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -42,13 +43,15 @@ class RecipeFragmentList : Fragment() {
             setContent {
                 Column() {
                     val recipes = viewModel.recipes.value
+                    val selectedCategory = viewModel.selectedCategory.value
+
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth(),
                         color = Color.White,
                         elevation = 8.dp,
                     ) {
-                        Column() {
+                        Column {
 
                             Row(modifier = Modifier.fillMaxWidth()) {
 
@@ -70,7 +73,7 @@ class RecipeFragmentList : Fragment() {
                                     leadingIcon = { Icon(Icons.Filled.Search) },
                                     onImeActionPerformed = { action, softKeyboardController ->
                                         if (action == ImeAction.Done) {
-                                            viewModel.newSearch(query)
+                                            viewModel.newSearch()
                                             softKeyboardController?.hideSoftwareKeyboard()
                                         }
                                     },
@@ -78,17 +81,25 @@ class RecipeFragmentList : Fragment() {
                                     backgroundColor = MaterialTheme.colors.surface
                                 )
                             }
-                            ScrollableRow(modifier = Modifier.fillMaxWidth()) {
+                            val scrollState = rememberScrollState()
+                            ScrollableRow(
+                                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+                                scrollState = scrollState
+                            ) {
+                                scrollState.scrollTo(viewModel.categoryScrollPosition)
                                 for (category in getAllFoodCategories()) {
                                     FoodCategoryChips(
                                         category = category.value,
-                                        onExecuteSearch = {
-                                            viewModel.onQueryChanged(it)
-                                            viewModel.newSearch(it)
-                                        }
+                                        isSelected = selectedCategory == category,
+                                        onSelectedCategoryChanged = {
+                                            viewModel.onChangeCategoryScrollPosition(scrollPosition = scrollState.value)
+                                            viewModel.onSelectedCategoryChanged(it)
+
+                                        },
+                                        onExecuteSearch =
+                                        viewModel::newSearch
                                     )
                                 }
-
                             }
                         }
                     }
