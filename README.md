@@ -9,9 +9,6 @@ MVVM, Kotlin, Retrofit, Jetpack Compose
 </div>
 
 
-<div align="center">
-    <img src="Screenshot_1614951636.png" width="400px"</img> 
-</div>
 
 
 
