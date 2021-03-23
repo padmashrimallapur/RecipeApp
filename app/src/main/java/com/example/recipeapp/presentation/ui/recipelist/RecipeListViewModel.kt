@@ -34,6 +34,7 @@ constructor(
     fun newSearch() {
         viewModelScope.launch {
             loading.value = true
+
             resetSearchCategory()
             val result = repository.search(
                 token = token,
